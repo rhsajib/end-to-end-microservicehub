@@ -1,8 +1,8 @@
-### Project Title
+### Project Title
 
 `End-to-End MicroServiceHub: React, Django, Flask, FastAPI for Scalable Application`
 
-The following discussion includes professional rationale for each technology choice in your stack:
+The following discussion includes professional rationale for each technology choice in my stack:
 
 1. **React for Frontend:**
    - *Rationale:* React is widely adopted for its component-based architecture, enabling modular and maintainable frontend code. Its virtual DOM ensures efficient updates, making it an excellent choice for dynamic user interfaces.
