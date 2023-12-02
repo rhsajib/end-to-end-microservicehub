@@ -1,3 +1,4 @@
+import bcrypt
 from django.contrib.auth.models import BaseUserManager
 from django.utils.translation import gettext_lazy as _
 
@@ -34,3 +35,18 @@ class UserManager(BaseUserManager):
             raise ValueError(_("Superuser must have is_superuser=True."))
         
         return self.create_user(email, password, **extra_fields)
+    
+
+
+
+class PasswordManager:
+    @staticmethod
+    def hash_password(password):
+        # Hash the password using bcrypt
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        return hashed_password.decode('utf-8')
+
+    @staticmethod
+    def validate_password(provided_password, hashed_password):
+        # Validate the provided password against the hashed password using bcrypt
+        return bcrypt.checkpw(provided_password.encode('utf-8'), hashed_password.encode('utf-8'))

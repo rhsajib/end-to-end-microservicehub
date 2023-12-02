@@ -11,6 +11,7 @@ class CommonConfig(BaseSettings):
     DEBUG: str = os.environ.get('DEBUG')
     # ALLOWED_HOSTS: list = os.environ.get('ALLOWED_HOSTS', '').split(',')  # must be list or tuple  # ['host1', 'host2', 'host3']
     ALLOWED_HOSTS: list = ['*']
+    
 
 
 class DbConfig(BaseSettings):

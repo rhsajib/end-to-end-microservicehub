@@ -14,6 +14,7 @@ DEBUG = config.DEBUG
 ALLOWED_HOSTS = config.ALLOWED_HOSTS
 ROOT_URLCONF = 'core.urls'
 WSGI_APPLICATION = 'core.wsgi.application'
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -26,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # packagesa
+    'corsheaders',
     'rest_framework',
     'drf_yasg',
 
@@ -34,7 +36,9 @@ INSTALLED_APPS = [
 
 ]
 
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -89,13 +93,23 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+# https://www.youtube.com/watch?v=-mEICwwmtjw&ab_channel=VeryAcademy
 
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'OPTIONS':{
+            'user_attributes':(
+                'username', 'email', 'first_name', 'last_name'
+            ),
+            'max_similarity': 0.5
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS':{
+            'min_length': 6,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -121,15 +135,17 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Media settings
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = 'media/'
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# Media settings
-MEDIA_ROOT = BASE_DIR/'media'
-MEDIA_URL = 'media/'
 
 # Celery Settings
 CELERY_BROKER_URL = config.CELERY_BROKER_URL
