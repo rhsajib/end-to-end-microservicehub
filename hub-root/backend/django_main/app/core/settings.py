@@ -27,6 +27,7 @@ INSTALLED_APPS = [
 
     # packagesa
     'rest_framework',
+    'drf_yasg',
 
     # apps
     'users',
