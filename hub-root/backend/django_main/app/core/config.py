@@ -11,7 +11,13 @@ class CommonConfig(BaseSettings):
     DEBUG: str = os.environ.get('DEBUG')
     # ALLOWED_HOSTS: list = os.environ.get('ALLOWED_HOSTS', '').split(',')  # must be list or tuple  # ['host1', 'host2', 'host3']
     ALLOWED_HOSTS: list = ['*']
-    
+
+
+class AwsS3Config(BaseSettings):
+    USE_S3: bool = os.environ.get('USE_S3') == 1
+    S3_ACCESS_KEY: str =os.environ.get('S3_ACCESS_KEY')
+    S3_SECRET_ACCESS_KEY: str = os.environ.get('S3_SECRET_ACCESS_KEY')
+    S3_BUCKET_NAME: str = os.environ.get('S3_BUCKET_NAME')
 
 
 class DbConfig(BaseSettings):
@@ -22,6 +28,7 @@ class DbConfig(BaseSettings):
     # For docker, DB_HOST should be set to the service name defined in your docker-compose.yml
     DB_HOST: str =  os.environ.get('DB_HOST')
     DB_PORT: str = os.environ.get('PORT')
+
 
 class CeleryConfig(BaseSettings):
     CELERY_BROKER_URL: str = os.environ.get('CELERY_BROKER')
@@ -34,8 +41,9 @@ class CeleryConfig(BaseSettings):
 #     EMAIL_PASSWORD: str= os.environ.get('EMAIL_PASSWORD')
 
 class CoreConfig(
-    DbConfig, 
     CommonConfig, 
+    AwsS3Config,
+    DbConfig, 
     CeleryConfig       
 ):
     model_config = SettingsConfigDict(case_sensitive=True)

@@ -1,0 +1,4 @@
+# postgres
+- brew services start postgresql@15
+- brew services stop postgresql@15
+- netstat -an | grep 5432
