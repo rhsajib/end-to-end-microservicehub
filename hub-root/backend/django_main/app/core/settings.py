@@ -33,7 +33,7 @@ INSTALLED_APPS = [
 
     # apps
     'users',
-
+    'text_to_pdf',
 ]
 
 
@@ -134,7 +134,8 @@ USE_TZ = True
 # ref: https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/
 
 # Storage configuration
-USE_S3 = config.USE_S3
+USE_S3 = 1
+# USE_S3 = config.USE_S3
 
 if USE_S3:
     # aws settings
@@ -142,18 +143,29 @@ if USE_S3:
     AWS_SECRET_ACCESS_KEY = config.S3_SECRET_ACCESS_KEY
     AWS_STORAGE_BUCKET_NAME = config.S3_BUCKET_NAME
     AWS_DEFAULT_ACL = None
+    AWS_S3_REGION_NAME = config.S3_REGION_NAME
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_QUERYSTRING_AUTH = False
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    # AWS_S3_VERIFY = True
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 
     # s3 static settings
-    STATIC_LOCATION = 'static'
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-    STATICFILES_STORAGE = 'hello_django.storage_backends.StaticStorage'
+    AWS_STATIC_LOCATION = 'static'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
+    STATICFILES_STORAGE = 'core.storage_backends.StaticStorage'
 
     # s3 public media settings
-    PUBLIC_MEDIA_LOCATION = 'media'
-    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
-    DEFAULT_FILE_STORAGE = 'hello_django.storage_backends.PublicMediaStorage'
+    AWS_PUBLIC_MEDIA_LOCATION = 'media'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_PUBLIC_MEDIA_LOCATION}/'
+    DEFAULT_FILE_STORAGE = 'core.storage_backends.PublicMediaStorage'
+
+    # s3 private media settings
+    AWS_PRIVATE_MEDIA_LOCATION = 'private'
+    # PRIVATE_MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_PRIVATE_MEDIA_LOCATION}/'
+    # PRIVATE_FILE_STORAGE = 'core.storage_backends.PrivateMediaStorage'
+
 else:
     STATIC_URL = 'static/'
     STATIC_ROOT = BASE_DIR / 'static'
@@ -161,7 +173,6 @@ else:
     MEDIA_ROOT = BASE_DIR / 'media'
     DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIRS = BASE_DIR / 'static'
 
 
 

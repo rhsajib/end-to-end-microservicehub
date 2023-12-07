@@ -18,6 +18,7 @@ class AwsS3Config(BaseSettings):
     S3_ACCESS_KEY: str =os.environ.get('S3_ACCESS_KEY')
     S3_SECRET_ACCESS_KEY: str = os.environ.get('S3_SECRET_ACCESS_KEY')
     S3_BUCKET_NAME: str = os.environ.get('S3_BUCKET_NAME')
+    S3_REGION_NAME: str = os.environ.get('S3_REGION_NAME')
 
 
 class DbConfig(BaseSettings):

@@ -24,15 +24,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     about            = models.TextField(_('about'), max_length=500, blank=True, null=True)
 
     # date_joined     = models.DateTimeField(auto_now_add=True)
-    date_joined     = models.DateTimeField(default=timezone.now)
-    updated_at      = models.DateTimeField(auto_now=True)
-    last_login      = models.DateTimeField(auto_now=True)
+    date_joined      = models.DateTimeField(default=timezone.now)
+    updated_at       = models.DateTimeField(auto_now=True)
+    last_login       = models.DateTimeField(auto_now=True)
 
-    is_staff        = models.BooleanField(default= False)
-    is_superuser    = models.BooleanField(default= False)
-    is_active       = models.BooleanField(default= False)
+    is_staff         = models.BooleanField(default= False)
+    is_superuser     = models.BooleanField(default= False)
+    is_active        = models.BooleanField(default= False)
 
-    profile_photo   = models.ImageField(_('profile photo'), upload_to=user_directory_path, blank=True)
+    profile_photo    = models.ImageField(_('profile photo'), upload_to=user_directory_path, blank=True)
 
     # unverified_email = models.EmailField(blank=True)
     # old_email_update_code = models.CharField(max_length=256, blank=True)

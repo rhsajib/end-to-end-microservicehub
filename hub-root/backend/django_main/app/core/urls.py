@@ -26,7 +26,12 @@ urlpatterns = [
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0),name='schema-swagger-ui'),
     path('api/v1/',
         include([
-            path('users/', include('users.urls', namespace='users'))
+            path('users/', include('users.urls', namespace='users')),
+            path('convert/',
+                 include([
+                    path('text-to-pdf', include('text_to_pdf.urls', namespace='text_to_pdf'))
+                 ])
+            )
         ])
     )
 ]
