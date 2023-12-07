@@ -5,6 +5,7 @@ from rest_framework.generics import CreateAPIView
 from rest_framework import status
 from .models import TextToPDF
 from .serializers import TextToPDFSerializer
+from .tasks import text_to_pdf_convert
 
 class TextToPDFView(CreateAPIView):
     parser_classes = (MultiPartParser,)
@@ -21,10 +22,10 @@ class TextToPDFView(CreateAPIView):
             )
         
         
+        # print(file)
         # print(file.name)
         # print(file.size)
 
-        print(file)
         # Check if a file was uploaded
         if file:
             # Get all attributes of the file
@@ -35,11 +36,11 @@ class TextToPDFView(CreateAPIView):
         # perform checks
         file_ext = str(file.name).split('.')[-1]
         # print('file_ext', file_ext)
-        if file_ext not in ['txt',]:
+        if file_ext not in ['txt', 'doc', 'docx']:
             return Response(
                 {
                     'message': 'file not valid' , 
-                    'acceptable_extension' : '.txt',
+                    'acceptable_extensions' : '.txt, .doc, .docx',
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
@@ -53,10 +54,16 @@ class TextToPDFView(CreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         
+        
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         print(serializer.data)
+
+        file_id = serializer.data.get('id')
+
+        text_to_pdf_convert.delay(file_id)
+
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     

@@ -11,8 +11,8 @@ app = Celery(
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Load task modules from all registered Django apps.
-app.autodiscover_tasks(['task_manager'])
-# app.autodiscover_tasks()
+# app.autodiscover_tasks(['text-to-pdf'])
+app.autodiscover_tasks()
 
 @app.task
 def add_number():

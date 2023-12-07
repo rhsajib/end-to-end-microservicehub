@@ -32,8 +32,11 @@ class DbConfig(BaseSettings):
 
 
 class CeleryConfig(BaseSettings):
-    CELERY_BROKER_URL: str = os.environ.get('CELERY_BROKER')
-    CELERY_RESULT_BACKEND: str = os.environ.get('CELERY_BACKEND')
+    CELERY_BROKER_URL: str = os.environ.get('CELERY_BROKER', 'redis://redis:6379/0')
+    CELERY_RESULT_BACKEND: str  = os.environ.get('CELERY_BACKEND', 'redis://redis:6379/0')
+
+class ExternalAPIConfig(BaseSettings):
+    TEXT_TO_PDF_API_TOKEN: str = os.environ.get('TEXT_TO_PDF_API_TOKEN')
 
     
 
@@ -45,7 +48,8 @@ class CoreConfig(
     CommonConfig, 
     AwsS3Config,
     DbConfig, 
-    CeleryConfig       
+    CeleryConfig,
+    ExternalAPIConfig,  
 ):
     model_config = SettingsConfigDict(case_sensitive=True)
 

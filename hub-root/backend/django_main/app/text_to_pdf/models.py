@@ -10,24 +10,30 @@ class FileSizeField(models.PositiveIntegerField):
 class TextToPDF(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     file = models.FileField(upload_to='text-to-pdf/', storage=PublicMediaStorage())
-    # file = models.FileField(upload_to='text-to-pdf/')
     file_size = FileSizeField(editable=False, null=True, blank=True)
 
-    def __str__(self):
-        return self.file.name
+    status = models.CharField(
+        max_length=20, 
+        default='pending',
+        choices=[
+            ('pending', 'Pending'),
+            ('in_progress', 'In Progress'),
+            ('completed', 'Completed'),
+            ('failed', 'Failed'),
+        ],
+    )
+
+    class Meta:
+        db_table = 'TextToPDF'
+        ordering = ['-uploaded_at']
+
 
     def save(self, *args, **kwargs):
         # Calculate and update the file size before saving
         self.file_size = self.file.size
         super().save(*args, **kwargs)
     
+    def __str__(self):
+        return self.file.name
 
-# class TextToPDF(models.Model):
-#     uploaded_at = models.DateTimeField(auto_now_add=True)
-#     file = models.FileField(upload_to='text-to-pdf')
-
-
-#     @property
-#     def file_size(self):
-#         return self.file.size
 

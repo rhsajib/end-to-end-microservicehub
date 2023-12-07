@@ -146,10 +146,21 @@ if USE_S3:
     AWS_S3_REGION_NAME = config.S3_REGION_NAME
     AWS_S3_FILE_OVERWRITE = False
     AWS_QUERYSTRING_AUTH = False
-    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
     # AWS_S3_VERIFY = True
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+
+    # In Amazon S3, objects (files) are versioned by default, 
+    # and each new version is treated as a separate object. 
+    # When we upload a file with the same key (path and filename) as an existing object, 
+    # S3 creates a new version of that object instead of overwriting it. 
+    # This is part of S3's versioning feature, which helps in preserving and 
+    # managing different versions of the same object.
+    # if we want to replace a file in database, it will be replaced in database
+    # but in s3 bucker a new file will be stored with the same key with different version
+
 
     # s3 static settings
     AWS_STATIC_LOCATION = 'static'
@@ -190,3 +201,6 @@ CELERY_RESULT_BACKEND = config.CELERY_RESULT_BACKEND
 #     print('*********************************************')
 #     print('CELERY_BROKER_URL: ', CELERY_BROKER_URL)
 #     print('*********************************************')
+
+
+TEXT_TO_PDF_API_TOKEN = config.TEXT_TO_PDF_API_TOKEN
