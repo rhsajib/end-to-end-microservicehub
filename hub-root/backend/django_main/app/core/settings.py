@@ -33,7 +33,7 @@ INSTALLED_APPS = [
 
     # apps
     'users',
-    'text_to_pdf',
+    'doc_to_pdf',
 ]
 
 
@@ -201,6 +201,3 @@ CELERY_RESULT_BACKEND = config.CELERY_RESULT_BACKEND
 #     print('*********************************************')
 #     print('CELERY_BROKER_URL: ', CELERY_BROKER_URL)
 #     print('*********************************************')
-
-
-TEXT_TO_PDF_API_TOKEN = config.TEXT_TO_PDF_API_TOKEN

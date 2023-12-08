@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.urls import path, include
-# from . import settings
 from django.conf import settings
 from django.conf.urls.static import static
 from drf_yasg import openapi
@@ -29,7 +28,7 @@ urlpatterns = [
             path('users/', include('users.urls', namespace='users')),
             path('convert/',
                  include([
-                    path('text-to-pdf', include('text_to_pdf.urls', namespace='text_to_pdf'))
+                    path('doc-to-pdf', include('doc_to_pdf.urls', namespace='doc_to_pdf'))
                  ])
             )
         ])

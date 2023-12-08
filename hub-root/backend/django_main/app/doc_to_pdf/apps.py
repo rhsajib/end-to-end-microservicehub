@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class TextToPdfConfig(AppConfig):
+class DocToPdfConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'text_to_pdf'
+    name = 'doc_to_pdf'
