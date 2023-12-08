@@ -6,6 +6,10 @@ boto3==1.33.10
 botocore==1.33.10
 celery==5.3.6
 certifi==2023.11.17
+<<<<<<< HEAD
+=======
+channels==4.0.0
+>>>>>>> channel
 charset-normalizer==3.3.2
 click==8.1.7
 click-didyoumean==0.3.0
