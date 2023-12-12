@@ -35,6 +35,10 @@ class CeleryConfig(BaseSettings):
     CELERY_BROKER_URL: str = os.environ.get('CELERY_BROKER', 'redis://redis:6379/0')
     CELERY_RESULT_BACKEND: str  = os.environ.get('CELERY_BACKEND', 'redis://redis:6379/0')
 
+class FileConvertServiceConfig(BaseSettings):
+    FILE_CONVERT_SERVICE_BASE_URL: str = os.environ.get('FILE_CONVERT_SERVICE_BASE_URL')
+    CHAT_SERVICE_BASE_URL: str = os.environ.get('CHAT_SERVICE_BASE_URL')
+
 
 # class EmailSettings(BaseSettings):
 #     SENDER_EMAIL: str = os.environ.get('SENDER_EMAIL')
@@ -45,6 +49,7 @@ class CoreConfig(
     AwsS3Config,
     DbConfig, 
     CeleryConfig,
+    FileConvertServiceConfig,
 ):
     model_config = SettingsConfigDict(case_sensitive=True)
 

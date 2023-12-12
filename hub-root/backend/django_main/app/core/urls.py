@@ -8,7 +8,7 @@ from drf_yasg.views import get_schema_view
 
 schema_view = get_schema_view(
    openapi.Info(
-      title='MSHub API',
+      title='API',
       default_version='v1',
       description='End to End Microservice Hub',
       terms_of_service='https://www.google.com/policies/terms/',
@@ -26,15 +26,14 @@ urlpatterns = [
     path('api/v1/',
         include([
             path('users/', include('users.urls', namespace='users')),
-            path('convert/',
+            path('file/',
                  include([
-                    path('doc-to-pdf', include('doc_to_pdf.urls', namespace='doc_to_pdf'))
+                    path('convert/', include('file_convert.urls', namespace='file_convert'))
                  ])
             )
         ])
     )
 ]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)

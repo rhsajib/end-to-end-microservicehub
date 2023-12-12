@@ -13,12 +13,25 @@ SECRET_KEY = config.SECRET_KEY
 DEBUG = config.DEBUG
 ALLOWED_HOSTS = config.ALLOWED_HOSTS
 ROOT_URLCONF = 'core.urls'
-WSGI_APPLICATION = 'core.wsgi.application'
 CORS_ORIGIN_ALLOW_ALL = True
+
+WSGI_APPLICATION = 'core.wsgi.application'
+ASGI_APPLICATION = 'core.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('localhost', 6379)],  # Adjust Redis server details as needed
+        },
+    },
+}
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -33,7 +46,8 @@ INSTALLED_APPS = [
 
     # apps
     'users',
-    'doc_to_pdf',
+    'file_convert',
+    'chat'
 ]
 
 
