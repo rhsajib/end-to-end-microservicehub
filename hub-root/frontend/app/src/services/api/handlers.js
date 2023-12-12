@@ -1,10 +1,10 @@
 import axios from "axios";
-import { DocToPdfApi } from "./apiEndPoints";
+import { API } from "./apiEndPoints";
 
-const handleDocToPdfUpload = (formData) => {
-    console.log(formData);
+const handleFileConvertUpload = (formData) => {
+    console.log(formData.get("channelId"));
     axios
-        .post(DocToPdfApi, formData)
+        .post(API.fileConvert, formData)
         .then((response) => {
             console.log(response.data);
         })
@@ -13,4 +13,4 @@ const handleDocToPdfUpload = (formData) => {
         });
 };
 
-export { handleDocToPdfUpload };
+export { handleFileConvertUpload };

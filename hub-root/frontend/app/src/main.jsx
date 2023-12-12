@@ -5,7 +5,9 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./components/Home/Home.jsx";
 import Layout from "./components/Layout/Layout.jsx";
-import DocToPdf from "./components/DocToPdf/DocToPdf.jsx";
+import FileConvert from "./components/FileConvert/FileConvert.jsx";
+import ChatRoom from "./components/Chat/ChatRoom.jsx";
+import Chat from "./components/Chat/Chat.jsx";
 
 const router = createBrowserRouter([
     {
@@ -17,8 +19,18 @@ const router = createBrowserRouter([
                 element: <Home />,
             },
             {
-                path: "/doc-to-pdf",
-                element: <DocToPdf />,
+                path: "/file-convert",
+                element: <FileConvert />,
+            },
+            {
+                path: "/chat",
+                element: <ChatRoom />,
+                children: [
+                    {
+                        path: "/chat/:chatId",
+                        element: <Chat />,
+                    },
+                ],
             },
         ],
     },
