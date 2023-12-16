@@ -3,7 +3,7 @@ from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 from .managers import FileConvertManager
 from .pspdfkit import get_converted_content
-
+import time
 
 
 @shared_task
@@ -16,12 +16,14 @@ def doc_to_pdf_convert(file_id, channel_id):
 
     try:
         # Send file status to WebSocket
+        # we do not need to establish distinct connnection with channel layer
+        # we can just subscribe or publish the layer
         async_to_sync(channel_layer.group_send)(
             room_group_name,
             {"type": "update_status",
              "status": "In progress..."}
         )
-
+        # time.sleep(10)
         file_content = object.get_file_content()
 
         # use third party api to convert file
