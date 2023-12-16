@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+
+class Messages(models.Model):
+    message = models.TextField(blank=True, null=True)
