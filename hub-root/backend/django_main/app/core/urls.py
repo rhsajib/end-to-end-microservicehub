@@ -26,6 +26,7 @@ urlpatterns = [
     path('api/v1/',
         include([
             path('users/', include('users.urls', namespace='users')),
+            path('chat/', include('chat.urls', namespace='chat')),
             path('file/',
                  include([
                     path('convert/', include('file_convert.urls', namespace='file_convert'))

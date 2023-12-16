@@ -37,8 +37,10 @@ class CeleryConfig(BaseSettings):
 
 class FileConvertServiceConfig(BaseSettings):
     FILE_CONVERT_SERVICE_BASE_URL: str = os.environ.get('FILE_CONVERT_SERVICE_BASE_URL')
-    CHAT_SERVICE_BASE_URL: str = os.environ.get('CHAT_SERVICE_BASE_URL')
 
+class ChatServiceConfig(BaseSettings):
+    CHAT_SERVICE_BASE_URL: str = os.environ.get('CHAT_SERVICE_BASE_URL')
+    CHAT_SERVICE_BASE_WS: str = os.environ.get('CHAT_SERVICE_BASE_WS')
 
 # class EmailSettings(BaseSettings):
 #     SENDER_EMAIL: str = os.environ.get('SENDER_EMAIL')
@@ -50,6 +52,7 @@ class CoreConfig(
     DbConfig, 
     CeleryConfig,
     FileConvertServiceConfig,
+    ChatServiceConfig,
 ):
     model_config = SettingsConfigDict(case_sensitive=True)
 

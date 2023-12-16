@@ -5,6 +5,3 @@ SERVICE_API = {
     'chat'         : f'{config.CHAT_SERVICE_BASE_URL}/api/v1/chat/'
 }
 
-SERVICE_WEBSOCKET = {
-    
-}
