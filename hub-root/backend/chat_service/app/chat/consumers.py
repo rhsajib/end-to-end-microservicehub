@@ -16,20 +16,33 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         # Extract room name from URL parameters
         self.room_group = self.scope["url_route"]["kwargs"]["chat_id"]
         self.chat_id = f'chat_service-{self.room_group}'
+
         await self.accept()
-        await self.channel_layer.group_add(self.chat_id, self.channel_name)
+
+        await self.channel_layer.group_add(
+            self.chat_id, 
+            self.channel_name
+        )
 
     async def disconnect(self, close_code):
-        await self.channel_layer.group_discard(self.chat_id, self.channel_name)
+        await self.channel_layer.group_discard(
+            self.chat_id, 
+            self.channel_name
+        )
 
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message_text = text_data_json["message"]
 
+        event_data = {
+            "type": "new_message", 
+            "message": message_text
+        }
+
         # Send message to room group and save to database
         await self.channel_layer.group_send(
             self.chat_id,
-            {"type": "new_message", "message": message_text}
+            event_data
         )
         await self.create_message(message_text)
 
