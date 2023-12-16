@@ -45,7 +45,8 @@ export default function Header() {
                                 <div className="flex flex-shrink-0 items-center">
                                     <img
                                         className="h-8 w-auto bg-white rounded-full p-1"
-                                        src="service.svg"
+                                        // src="service.svg"
+                                        src={"service.svg"}
                                         alt="Company logo"
                                         style={{ fill: "white" }}
                                     />

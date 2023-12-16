@@ -10,7 +10,7 @@ const ChatRoom = () => {
                 <h1 className="text-3xl">Welcome to chat room</h1>
             </div>
             <div className="flex">
-                <div className="flex w-1/3 border border-t-0 border-r-amber-400 h-screen pt-4">
+                <div className="flex w-1/3 border border-t-0 border-r-amber-400 pt-4">
                     <button
                         type="submit"
                         className="border rounded-md w-full h-10  mx-6 bg-cyan-400"
@@ -21,8 +21,7 @@ const ChatRoom = () => {
                     </button>
                 </div>
                 <div className="flex-grow">
-                    <h1>Chat</h1>
-                    <Outlet />
+                    <Outlet/>
                 </div>
             </div>
         </div>

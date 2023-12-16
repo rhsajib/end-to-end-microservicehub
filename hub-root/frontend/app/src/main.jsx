@@ -8,6 +8,7 @@ import Layout from "./components/Layout/Layout.jsx";
 import FileConvert from "./components/FileConvert/FileConvert.jsx";
 import ChatRoom from "./components/Chat/ChatRoom.jsx";
 import Chat from "./components/Chat/Chat.jsx";
+import { messagesLoader } from "./services/api/apiLoaders.js";
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
                     {
                         path: "/chat/:chatId",
                         element: <Chat />,
+                        loader: ({ params }) => messagesLoader(params.chatId),
                     },
                 ],
             },

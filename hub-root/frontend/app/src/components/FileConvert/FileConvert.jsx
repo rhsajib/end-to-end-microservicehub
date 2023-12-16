@@ -17,7 +17,7 @@ const FileConvert = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [fileType, setFileType] = useState("");
     const [channelId, setChannelId] = useState("");
-    const [status, setStatus] = useState("waiting...");
+    const [status, setStatus] = useState(null);
     const [socket, setSocket] = useState(null);
     const [download, setDownload] = useState(false);
 
@@ -29,9 +29,10 @@ const FileConvert = () => {
             );
 
             newSocket.onopen = () => {
-                console.log(
-                    `WebSocket connection established for ${channelId}`
-                );
+                console
+                    .log
+                    // `WebSocket connection established for ${channelId}`
+                    ();
             };
 
             newSocket.onmessage = (e) => {
@@ -61,7 +62,8 @@ const FileConvert = () => {
         const file = e.target.files[0];
         // console.log(e.target.files)
         // console.log('handleFileChange', file);
-
+        setDownload(false);
+        setStatus("Click upload button...");
         setSelectedFile(file);
     };
 
@@ -77,14 +79,12 @@ const FileConvert = () => {
         //     alert("Please select a valid text file (.txt).")
         // }
 
-
         // Generate a unique ID when the upload button is clicked
         // generating uuid causes some delay.
         // const generatedID = 4;
         let generatedID;
         try {
             generatedID = uuidv4();
-            console.log(generatedID)
         } catch (error) {
             console.error("Error generating UUID:", error);
             alert("Error generating unique ID. Please try again.");
