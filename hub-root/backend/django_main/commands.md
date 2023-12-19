@@ -2,6 +2,9 @@
 - brew services start postgresql@15
 - brew services stop postgresql@15
 - netstat -an | grep 5432
+  
+- sudo lsof -i :5432
+- sudo lsof -i :5432 | awk 'NR!=1 {print $2}' | xargs sudo kill -9
 
 # redis
 ```sh
@@ -10,6 +13,44 @@
    redis-server
    brew services stop redis
 ```
+
+# run multiple docker-compose file in same network
+(venv) django_main $ docker-compose -f docker-compose-main.yaml -f ../chat_service/docker-compose-chat.yaml up
+
+
+
+# kafka
+// create topic name
+- docker exec -it kafka kafka-topics --create --topic chat_service --partitions 1 --replication-factor 1 --bootstrap-server localhost:9092
+- docker exec -it kafka kafka-topics --create --topic chat_service --partitions 1 --replication-factor 1 --bootstrap-server kafka:29092
+- docker exec -it kafka kafka-topics --create --zookeeper:2181 --partitions 1 --replication-factor 1 --topic test_topic
+
+Remove Kafka and Zookeeper Data:
+rm -rf kafka-data zookeeper-data
+
+  
+#### These are inside kafka shell
+kafka-topics --bootstrap-server kafka:29092 --list
+kafka-topics --bootstrap-server localhost:9092 --list
+kafka-topics --bootstrap-server kafka:29092 --delete --topic chat_service
+
+# docker
+- https://www.baeldung.com/ops/docker-compose-communication
+docker network create common_network
+docker inspect kafka | grep "IPAddress"
+
+
+```
+run docker-comkpose file separately with the same network
+
+docker network create my_shared_network
+docker-compose -f docker-compose-main.yaml --network my_shared_network up -d
+docker-compose -f ../chat_service/docker-compose-chat.yaml --network my_shared_network up -d
+```
+
+
+
+
 # celery
 celery -A core worker --loglevel=INFO
 

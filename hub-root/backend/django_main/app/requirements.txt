@@ -32,6 +32,7 @@ idna==3.6
 incremental==22.10.0
 inflection==0.5.1
 jmespath==1.0.1
+kafka-python==2.0.2
 kombu==5.3.4
 Markdown==3.5.1
 msgpack==1.0.7

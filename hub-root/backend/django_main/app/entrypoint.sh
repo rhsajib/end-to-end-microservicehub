@@ -5,7 +5,7 @@ python manage.py makemigrations
 python manage.py migrate
 
 # Collect static files
-python manage.py collectstatic --no-input -v 2 --clear
+# python manage.py collectstatic --no-input -v 2 --clear
 
 # python manage.py createcachetable
 
