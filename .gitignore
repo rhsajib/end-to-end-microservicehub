@@ -4,7 +4,13 @@
 *.pyc
 __pycache__
 db.sqlite3
-media
+
+media/
+static/
+
+
+# postgresql image data
+postgres_data/
 
 .DS_Store
 
