@@ -1,12 +1,12 @@
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from channels.layers import get_channel_layer
+
 from asgiref.sync import async_to_sync
-from .consumers import ChatRoomConsumer
+# from .consumers import ChatRoomConsumer
 from rest_framework import viewsets
-from .models import Messages
-from .serializers import MessagesSerializer
-import websockets
+from .models import Message
+from .serializers import MessageSerializer
+
 from core import config
 import asyncio
 
@@ -14,8 +14,8 @@ import asyncio
 
 
 class MessageViewSet(viewsets.ModelViewSet):
-    queryset = Messages.objects.all()
-    serializer_class = MessagesSerializer
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
 
     def list(self, request, *args, **kwargs):
         chat_id = 'chat-a4sfdkj490'
@@ -82,11 +82,11 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
-from .models import Messages
+from .models import Message
 from .serializers import MessagesSerializer
 
 class MessageViewSet(viewsets.ModelViewSet):
-    queryset = Messages.objects.all()
+    queryset = Message.objects.all()
     serializer_class = MessagesSerializer
 
 
